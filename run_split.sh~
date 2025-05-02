@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Make sure Rscript is available
+if ! command -v Rscript &> /dev/null
+then
+    echo "Rscript could not be found"
+    exit 1
+fi
+
+# Run the R script
+Rscript split_by_year.R

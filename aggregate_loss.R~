@@ -1,0 +1,59 @@
+library(dplyr)
+library(readr)
+library(ggplot2)
+install.packages("maps", repos = "http://cran.us.r-project.org")
+library(maps)
+
+# Read and combine all year summaries
+files <- list.files(pattern = "^loss_summary_\\d{4}\\.csv$")
+all_data <- lapply(files, read_csv)
+combined <- bind_rows(all_data)
+
+# Total loss per state
+final_summary <- combined %>%
+  group_by(st) %>%
+  summarise(across(c(Tornado, Hail, Wind), sum, na.rm = TRUE))
+
+# Save total loss table
+write.csv(final_summary, "total_loss_by_state.csv", row.names = FALSE)
+
+# Determine the most damaging weather type per state
+final_summary <- final_summary %>%
+  mutate(
+    max_type = case_when(
+      Tornado >= Hail & Tornado >= Wind ~ "Tornado",
+      Hail >= Tornado & Hail >= Wind ~ "Hail",
+      Wind >= Tornado & Wind >= Hail ~ "Wind"
+    )
+  )
+
+# Prepare state names
+state_names <- data.frame(
+  st = state.abb,
+  region = tolower(state.name)
+)
+
+# Merge state names for map plotting
+plot_data <- final_summary %>%
+  left_join(state_names, by = "st") %>%
+  filter(!is.na(region))
+
+# Get map data
+us_map <- map_data("state")
+
+map_df <- us_map %>%
+  left_join(plot_data, by = "region")
+
+p <- ggplot(map_df, aes(x = long, y = lat, group = group, fill = max_type)) +
+  geom_polygon(color = "white") +
+  coord_fixed(1.3) +
+  labs(
+    title = "Weather Type Causing the Most Loss per State (1996–2023)",
+    fill = "Weather Type"
+  ) +
+  theme_minimal()
+
+# Save the plot
+ggsave("most_damaging_weather_map.png", plot = p, width = 12, height = 8)
+
+cat("All finished! Results saved: total_loss_by_state.csv and most_damaging_weather_map.png\n")

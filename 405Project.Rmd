@@ -1,0 +1,498 @@
+---
+title: "405Project"
+author: "Terence Wang"
+date: "2025-04-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(maps)
+library(tidyr)
+library(scatterpie)
+```
+
+```{r}
+torn_data <- read_csv("1950-2023_torn.csv")
+hail_data <- read_csv("1955-2023_hail.csv")
+wind_data <- read_csv("1955-2023_wind.csv")
+```
+
+```{r}
+total_loss <- read_csv("total_loss_by_state.csv")
+```
+
+```{r}
+total_loss <- read_csv("total_loss_by_state.csv")
+
+total_loss <- total_loss %>%
+  mutate(Total = Tornado + Hail + Wind)
+
+p1 <- total_loss %>%
+  arrange(desc(Tornado)) %>%
+  ggplot(aes(x = reorder(st, Tornado), y = Tornado)) +
+  geom_col(fill = "firebrick") +
+  coord_flip() +
+  labs(title = "Tornado Loss by State (1996–2023)", x = "State", y = "Loss ($)") +
+  theme_minimal()
+
+ggsave("tornado_loss_by_state.png", p1, width = 8, height = 10)
+
+p2 <- total_loss %>%
+  arrange(desc(Hail)) %>%
+  ggplot(aes(x = reorder(st, Hail), y = Hail)) +
+  geom_col(fill = "skyblue") +
+  coord_flip() +
+  labs(title = "Hail Loss by State (1996–2023)", x = "State", y = "Loss ($)") +
+  theme_minimal()
+
+ggsave("hail_loss_by_state.png", p2, width = 8, height = 10)
+
+p3 <- total_loss %>%
+  arrange(desc(Wind)) %>%
+  ggplot(aes(x = reorder(st, Wind), y = Wind)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(title = "Wind Loss by State (1996–2023)", x = "State", y = "Loss ($)") +
+  theme_minimal()
+
+ggsave("wind_loss_by_state.png", p3, width = 8, height = 10)
+
+p4 <- total_loss %>%
+  arrange(desc(Total)) %>%
+  ggplot(aes(x = reorder(st, Total), y = Total)) +
+  geom_col(fill = "goldenrod") +
+  coord_flip() +
+  labs(title = "Total Severe Weather Loss by State (1996–2023)", x = "State", y = "Loss ($)") +
+  theme_minimal()
+
+ggsave("total_loss_by_state.png", p4, width = 8, height = 10)
+
+loss_map <- total_loss %>%
+  mutate(
+    max_type = case_when(
+      Tornado >= Hail & Tornado >= Wind ~ "Tornado",
+      Hail >= Tornado & Hail >= Wind ~ "Hail",
+      Wind >= Tornado & Wind >= Hail ~ "Wind"
+    )
+  )
+
+state_names <- data.frame(
+  st = state.abb,
+  region = tolower(state.name)
+)
+
+plot_data <- loss_map %>%
+  left_join(state_names, by = "st") %>%
+  filter(!is.na(region))
+
+us_map <- map_data("state")
+
+map_df <- us_map %>%
+  left_join(plot_data, by = "region")
+
+p5 <- ggplot(map_df, aes(x = long, y = lat, group = group, fill = max_type)) +
+  geom_polygon(color = "black", linewidth = 0.2) +
+  coord_fixed(1.3) +
+  theme_void() +
+  scale_fill_manual(values = c("Tornado" = "red", "Hail" = "blue", "Wind" = "green")) +
+  labs(title = "Most Damaging Weather Type per State (1996–2023)", fill = "Weather Type")
+
+ggsave("weather_type_map.png", p5, width = 12, height = 8)
+```
+
+```{r}
+total_loss <- read_csv("total_loss_by_state.csv")
+
+state_names <- data.frame(
+  st = state.abb,
+  region = tolower(state.name)
+)
+
+loss_map <- total_loss %>%
+  mutate(Total = Tornado + Hail + Wind) %>%
+  left_join(state_names, by = "st") %>%
+  filter(!is.na(region))
+
+us_map <- map_data("state")
+
+state_centers <- as.data.frame(state.center)
+state_centers$region <- tolower(state.name)
+
+plot_data <- plot_data %>%
+  mutate(sqrt_total = sqrt(Total))
+
+plot_data <- plot_data %>%
+  mutate(scaled_total = (sqrt_total - min(sqrt_total)) / (max(sqrt_total) - min(sqrt_total)))
+
+plot_data <- plot_data %>%
+  mutate(radius = (scaled_total * (1.2 - 0.2) + 0.2) * 3)
+
+p <- ggplot() +
+  geom_polygon(data = us_map, aes(x = long, y = lat, group = group), fill = "gray90", color = "white") +
+  geom_scatterpie(
+    aes(x = x, y = y, group = region, r = radius),
+    data = plot_data,
+    cols = c("Tornado", "Hail", "Wind"),
+    color = NA
+  ) +
+  coord_fixed(1.3) +
+  scale_fill_manual(values = c("Tornado" = "red", "Hail" = "blue", "Wind" = "green")) +
+  theme_void() +
+  labs(
+    title = "Severe Weather Loss Distribution by State (1996–2023)",
+    fill = "Weather Type"
+  )
+
+ggsave("usa_pie_map.png", p, width = 14, height = 10)
+```
+
+```{r}
+torn_data <- torn_data %>% filter(yr >= 1996)
+hail_data <- hail_data %>% filter(yr >= 1996)
+wind_data <- wind_data %>% filter(yr >= 1996)
+
+torn_count <- torn_data %>%
+  group_by(st) %>%
+  summarise(Tornado = n(), .groups = "drop")
+
+hail_count <- hail_data %>%
+  group_by(st) %>%
+  summarise(Hail = n(), .groups = "drop")
+
+wind_count <- wind_data %>%
+  group_by(st) %>%
+  summarise(Wind = n(), .groups = "drop")
+
+total_event <- full_join(torn_count, hail_count, by = "st") %>%
+  full_join(wind_count, by = "st") %>%
+  replace_na(list(Tornado = 0, Hail = 0, Wind = 0))
+
+write_csv(total_event, "total_event_by_state.csv")
+```
+
+```{r}
+total_event <- read_csv("total_event_by_state.csv")
+```
+
+```{r}
+total_event <- read_csv("total_event_by_state.csv")
+
+total_event <- total_event %>%
+  mutate(Total = Tornado + Hail + Wind)
+
+p1 <- total_event %>%
+  arrange(desc(Tornado)) %>%
+  ggplot(aes(x = reorder(st, Tornado), y = Tornado)) +
+  geom_col(fill = "firebrick") +
+  coord_flip() +
+  labs(title = "Tornado Events by State (1996–2023)", x = "State", y = "Event Count") +
+  theme_minimal()
+
+ggsave("tornado_events_by_state.png", p1, width = 8, height = 10)
+
+p2 <- total_event %>%
+  arrange(desc(Hail)) %>%
+  ggplot(aes(x = reorder(st, Hail), y = Hail)) +
+  geom_col(fill = "skyblue") +
+  coord_flip() +
+  labs(title = "Hail Events by State (1996–2023)", x = "State", y = "Event Count") +
+  theme_minimal()
+
+ggsave("hail_events_by_state.png", p2, width = 8, height = 10)
+
+p3 <- total_event %>%
+  arrange(desc(Wind)) %>%
+  ggplot(aes(x = reorder(st, Wind), y = Wind)) +
+  geom_col(fill = "seagreen") +
+  coord_flip() +
+  labs(title = "Wind Events by State (1996–2023)", x = "State", y = "Event Count") +
+  theme_minimal()
+
+ggsave("wind_events_by_state.png", p3, width = 8, height = 10)
+
+p4 <- total_event %>%
+  arrange(desc(Total)) %>%
+  ggplot(aes(x = reorder(st, Total), y = Total)) +
+  geom_col(fill = "goldenrod") +
+  coord_flip() +
+  labs(title = "Total Severe Weather Events by State (1996–2023)", x = "State", y = "Event Count") +
+  theme_minimal()
+
+ggsave("total_events_by_state.png", p4, width = 8, height = 10)
+
+state_names <- data.frame(
+  st = state.abb,
+  region = tolower(state.name)
+)
+
+plot_data <- total_event %>%
+  left_join(state_names, by = "st") %>%
+  filter(!is.na(region))
+
+us_map <- map_data("state")
+
+state_centers <- as.data.frame(state.center)
+state_centers$region <- tolower(state.name)
+
+plot_data <- plot_data %>%
+  left_join(state_centers, by = "region")
+
+plot_data <- plot_data %>%
+  mutate(sqrt_total = sqrt(Total)) %>%
+  mutate(scaled_total = (sqrt_total - min(sqrt_total)) / (max(sqrt_total) - min(sqrt_total))) %>%
+  mutate(radius = (scaled_total * (1.2 - 0.2) + 0.2) * 1.5)
+
+p5 <- ggplot() +
+  geom_polygon(data = us_map, aes(x = long, y = lat, group = group), fill = "gray90", color = "white") +
+  geom_scatterpie(
+    aes(x = x, y = y, group = region, r = radius),
+    data = plot_data,
+    cols = c("Tornado", "Hail", "Wind"),
+    color = NA
+  ) +
+  coord_fixed(1.3) +
+  scale_fill_manual(values = c("Tornado" = "red", "Hail" = "blue", "Wind" = "green")) +
+  theme_void() +
+  labs(title = "Severe Weather Events Distribution by State (1996–2023)", fill = "Event Type")
+
+ggsave("usa_pie_event_map.png", p5, width = 14, height = 10)
+```
+
+```{r}
+torn_by_year <- torn_data %>%
+  group_by(yr) %>%
+  summarise(Tornado = n(), .groups = "drop")
+
+hail_by_year <- hail_data %>%
+  group_by(yr) %>%
+  summarise(Hail = n(), .groups = "drop")
+
+wind_by_year <- wind_data %>%
+  group_by(yr) %>%
+  summarise(Wind = n(), .groups = "drop")
+
+event_by_year <- torn_by_year %>%
+  full_join(hail_by_year, by = "yr") %>%
+  full_join(wind_by_year, by = "yr") %>%
+  arrange(yr)
+
+event_by_year_long <- event_by_year %>%
+  pivot_longer(cols = c("Tornado", "Hail", "Wind"), names_to = "Type", values_to = "Count")
+
+p <- ggplot(event_by_year_long, aes(x = yr, y = Count, color = Type)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("Tornado" = "red", "Hail" = "blue", "Wind" = "green")) +
+  labs(
+    title = "Number of Severe Weather Events by Year (1950–2023)",
+    x = "Year",
+    y = "Event Count",
+    color = "Event Type"
+  ) +
+  theme_minimal()
+
+ggsave("event_count_by_year.png", p, width = 10, height = 6)
+```
+
+```{r}
+torn_data <- read_csv("1950-2023_torn.csv")
+hail_data <- read_csv("1955-2023_hail.csv")
+wind_data <- read_csv("1955-2023_wind.csv")
+
+torn_data <- torn_data %>%
+  mutate(mo = as.integer(mo))
+
+hail_data <- hail_data %>%
+  mutate(mo = as.integer(mo))
+
+wind_data <- wind_data %>%
+  mutate(mo = as.integer(mo))
+
+torn_monthly <- torn_data %>%
+  group_by(st, mo) %>%
+  summarise(Tornado = n(), .groups = "drop")
+
+hail_monthly <- hail_data %>%
+  group_by(st, mo) %>%
+  summarise(Hail = n(), .groups = "drop")
+
+wind_monthly <- wind_data %>%
+  group_by(st, mo) %>%
+  summarise(Wind = n(), .groups = "drop")
+
+write_csv(torn_monthly, "tornado_monthly_per_state.csv")
+write_csv(hail_monthly, "hail_monthly_per_state.csv")
+write_csv(wind_monthly, "wind_monthly_per_state.csv")
+
+
+p1 <- ggplot(torn_monthly, aes(x = factor(mo), y = Tornado, fill = st)) +
+  geom_col(position = "stack", show.legend = FALSE) +
+  facet_wrap(~st, scales = "free_y", ncol = 8) +
+  labs(title = "Tornado Monthly Events per State (1950-2023)", x = "Month", y = "Number of Tornado Events") +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 6), axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+ggsave("tornado_monthly_per_state.png", p1, width = 16, height = 12)
+
+p2 <- ggplot(hail_monthly, aes(x = factor(mo), y = Hail, fill = st)) +
+  geom_col(position = "stack", show.legend = FALSE) +
+  facet_wrap(~st, scales = "free_y", ncol = 8) +
+  labs(title = "Hail Monthly Events per State (1955-2023)", x = "Month", y = "Number of Hail Events") +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 6), axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+ggsave("hail_monthly_per_state.png", p2, width = 16, height = 12)
+
+p3 <- ggplot(wind_monthly, aes(x = factor(mo), y = Wind, fill = st)) +
+  geom_col(position = "stack", show.legend = FALSE) +
+  facet_wrap(~st, scales = "free_y", ncol = 8) +
+  labs(title = "Wind Monthly Events per State (1955-2023)", x = "Month", y = "Number of Wind Events") +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 6), axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+ggsave("wind_monthly_per_state.png", p3, width = 16, height = 12)
+
+total_monthly_tornado <- torn_data %>%
+  group_by(mo) %>%
+  summarise(Tornado = n(), .groups = "drop")
+
+total_monthly_hail <- hail_data %>%
+  group_by(mo) %>%
+  summarise(Hail = n(), .groups = "drop")
+
+total_monthly_wind <- wind_data %>%
+  group_by(mo) %>%
+  summarise(Wind = n(), .groups = "drop")
+
+total_monthly_events <- total_monthly_tornado %>%
+  full_join(total_monthly_hail, by = "mo") %>%
+  full_join(total_monthly_wind, by = "mo") %>%
+  arrange(mo)
+
+total_monthly_events_long <- total_monthly_events %>%
+  pivot_longer(cols = c("Tornado", "Hail", "Wind"), names_to = "Type", values_to = "Count")
+
+p4 <- ggplot(total_monthly_events_long, aes(x = factor(mo), y = Count, color = Type, group = Type)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("Tornado" = "red", "Hail" = "blue", "Wind" = "green")) +
+  labs(
+    title = "Total Severe Weather Events by Month (1950–2023)",
+    x = "Month",
+    y = "Number of Events",
+    color = "Event Type"
+  ) +
+  theme_minimal()
+
+ggsave("total_events_by_month.png", p4, width = 10, height = 6)
+
+```
+```{r}
+
+torn_data <- read_csv("1950-2023_torn.csv")
+hail_data <- read_csv("1955-2023_hail.csv")
+wind_data <- read_csv("1955-2023_wind.csv")
+
+torn_data <- torn_data %>% mutate(mo = as.integer(mo))
+hail_data <- hail_data %>% mutate(mo = as.integer(mo))
+wind_data <- wind_data %>% mutate(mo = as.integer(mo))
+
+months <- 1:12
+
+torn_counts <- torn_data %>%
+  filter(mo %in% months) %>%
+  count(mo) %>%
+  complete(mo = months, fill = list(n = 0))  # 补0
+
+torn_test <- chisq.test(torn_counts$n, p = rep(1/length(months), length(months)))
+
+cat("Tornado Monthly Test:\n")
+print(torn_test)
+
+hail_counts <- hail_data %>%
+  filter(mo %in% months) %>%
+  count(mo) %>%
+  complete(mo = months, fill = list(n = 0))
+
+hail_test <- chisq.test(hail_counts$n, p = rep(1/length(months), length(months)))
+
+cat("\nHail Monthly Test:\n")
+print(hail_test)
+
+wind_counts <- wind_data %>%
+  filter(mo %in% months) %>%
+  count(mo) %>%
+  complete(mo = months, fill = list(n = 0))
+
+wind_test <- chisq.test(wind_counts$n, p = rep(1/length(months), length(months)))
+
+cat("\nWind Monthly Test:\n")
+print(wind_test)
+
+```
+
+
+```{r}
+torn_data <- read_csv("1950-2023_torn.csv")
+hail_data <- read_csv("1955-2023_hail.csv")
+wind_data <- read_csv("1955-2023_wind.csv")
+
+torn_data <- torn_data %>% mutate(yr = as.integer(yr))
+hail_data <- hail_data %>% mutate(yr = as.integer(yr))
+wind_data <- wind_data %>% mutate(yr = as.integer(yr))
+
+years <- 1950:2023
+
+torn_counts <- torn_data %>%
+  filter(yr %in% years) %>%
+  count(yr) %>%
+  complete(yr = years, fill = list(n = 0))  # 防止有年份没有记录
+
+torn_test <- chisq.test(torn_counts$n, p = rep(1/length(years), length(years)))
+
+cat("Tornado Test:\n")
+print(torn_test)
+
+years <- 1955:2023
+
+hail_counts <- hail_data %>%
+  filter(yr %in% years) %>%
+  count(yr) %>%
+  complete(yr = years, fill = list(n = 0))
+
+hail_test <- chisq.test(hail_counts$n, p = rep(1/(length(years)), length(years)))
+
+cat("\nHail Test:\n")
+print(hail_test)
+
+wind_counts <- wind_data %>%
+  filter(yr %in% years) %>%
+  count(yr) %>%
+  complete(yr = years, fill = list(n = 0))
+
+wind_test <- chisq.test(wind_counts$n, p = rep(1/length(years), length(years)))
+
+cat("\nWind Test:\n")
+print(wind_test)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,113 @@
+000 (266384.000.000) 2025-04-25 23:53:58 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266384.000.000) 2025-04-25 23:54:23 Started transferring input files
+	Transferring to host: <128.105.68.15:9618?addrs=128.105.68.15-9618+[2607-f388-2200-100-b226-28ff-fe51-615c]-9618&alias=e2008.chtc.wisc.edu&noUDP&sock=slot1_39_574711_a3e4_11493>
+...
+040 (266384.000.000) 2025-04-25 23:54:36 Finished transferring input files
+...
+040 (266384.000.000) 2025-04-25 23:54:38 Started transferring output files
+...
+021 (266384.000.000) 2025-04-25 23:54:38 Error from starter on slot1_39@e2008.chtc.wisc.edu:
+	Failed to transfer files: SHADOW at 128.104.100.148 failed to send file(s) to <128.105.68.15:43457>: |Error: reading from file /home/twang682/project/extracted_torn_data/1996_tornado.csv: (errno 2) No such file or directory; STARTER failed to receive file(s) from <128.104.100.148:9618>
+	Code 13 Subcode 2
+...
+004 (266384.000.000) 2025-04-25 23:54:38 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	1929115  -  Run Bytes Received By Job
+	Transfer input files failure at access point learn while sending files to execution point slot1_39@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/extracted_torn_data/1996_tornado.csv: (errno 2) No such file or directory
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   778039   512000    513152 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :               512       512 
+...
+012 (266384.000.000) 2025-04-25 23:54:38 Job was held.
+	Transfer input files failure at access point learn while sending files to execution point slot1_39@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/extracted_torn_data/1996_tornado.csv: (errno 2) No such file or directory
+	Code 13 Subcode 2
+...
+000 (266385.000.000) 2025-04-26 00:25:32 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266385.000.000) 2025-04-26 00:27:18 Started transferring input files
+	Transferring to host: <128.105.68.155:9618?addrs=128.105.68.155-9618+[2607-f388-2200-100-b226-28ff-fe50-5c14]-9618&alias=e2014.chtc.wisc.edu&noUDP&sock=slot1_38_2773577_a7ec_17331>
+...
+040 (266385.000.000) 2025-04-26 00:31:33 Finished transferring input files
+...
+040 (266385.000.000) 2025-04-26 00:31:34 Started transferring output files
+...
+021 (266385.000.000) 2025-04-26 00:31:35 Error from starter on slot1_38@e2014.chtc.wisc.edu:
+	Failed to transfer files: FILETRANSFER:1:non-zero exit (1) from /usr/libexec/condor/curl_plugin. |Error: Failure writing output to destination (with environment: http_proxy='http://squid-cs-2360.chtc.wisc.edu:3128', https_proxy='') ( URL file = file:///staging/jgillett/R_tidyverse_FITSio.sif )|
+	Code 12 Subcode 256
+...
+004 (266385.000.000) 2025-04-26 00:31:35 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	2060715  -  Run Bytes Received By Job
+	Transfer input files failure at execution point slot1_38@e2014.chtc.wisc.edu using protocol file. Details: Failure writing output to destination (with environment: http_proxy='http://squid-cs-2360.chtc.wisc.edu:3128', https_proxy='') ( URL file = file:///staging/jgillett/R_tidyverse_FITSio.sif )|
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :   477251   512000    513234 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :               512       512 
+...
+012 (266385.000.000) 2025-04-26 00:31:35 Job was held.
+	Transfer input files failure at execution point slot1_38@e2014.chtc.wisc.edu using protocol file. Details: Failure writing output to destination (with environment: http_proxy='http://squid-cs-2360.chtc.wisc.edu:3128', https_proxy='') ( URL file = file:///staging/jgillett/R_tidyverse_FITSio.sif )|
+	Code 13 Subcode 256
+...
+000 (266386.000.000) 2025-04-26 00:55:15 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266386.000.000) 2025-04-26 00:56:13 Started transferring input files
+	Transferring to host: <128.105.68.157:9618?addrs=128.105.68.157-9618+[2607-f388-2200-100-b226-28ff-fe50-2c68]-9618&alias=e2016.chtc.wisc.edu&noUDP&sock=slot1_6_2290744_20d9_11322>
+...
+040 (266386.000.000) 2025-04-26 00:56:25 Finished transferring input files
+...
+001 (266386.000.000) 2025-04-26 00:56:25 Job executing on host: <128.105.68.157:9618?addrs=128.105.68.157-9618+[2607-f388-2200-100-b226-28ff-fe50-2c68]-9618&alias=e2016.chtc.wisc.edu&noUDP&sock=startd_9715_42aa>
+	SlotName: slot1_6@e2016.chtc.wisc.edu
+	CondorScratchDir = "/var/lib/condor/execute/slot1/dir_228197"
+	Cpus = 1
+	Disk = 1049810
+	GPUs = 0
+	IoHeavy = 0
+	Memory = 1024
+...
+006 (266386.000.000) 2025-04-26 00:56:31 Image size of job updated: 128
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+040 (266386.000.000) 2025-04-26 00:56:31 Started transferring output files
+...
+040 (266386.000.000) 2025-04-26 00:56:31 Finished transferring output files
+...
+005 (266386.000.000) 2025-04-26 00:56:31 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:02, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:02, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	1276  -  Run Bytes Sent By Job
+	2060715  -  Run Bytes Received By Job
+	1276  -  Total Bytes Sent By Job
+	2060715  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :   778220  1048576   1049810 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :        0     1024      1024 
+	   TimeExecute (s)      :        6                    
+	   TimeSlotBusy (s)     :       18                    
+
+	Job terminated of its own accord at 2025-04-26T05:56:31Z with exit-code 0.
+...
+009 (266384.000.000) 2025-04-26 02:35:49 Job was aborted.
+	via condor_rm (by user twang682)
+...
+009 (266385.000.000) 2025-04-26 02:35:52 Job was aborted.
+	via condor_rm (by user twang682)
+...

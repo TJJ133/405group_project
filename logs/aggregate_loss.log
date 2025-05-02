@@ -1,0 +1,213 @@
+000 (266389.000.000) 2025-04-26 02:41:52 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266389.000.000) 2025-04-26 02:42:17 Started transferring input files
+	Transferring to host: <128.105.68.15:9618?addrs=128.105.68.15-9618+[2607-f388-2200-100-b226-28ff-fe51-615c]-9618&alias=e2008.chtc.wisc.edu&noUDP&sock=slot1_9_574711_a3e4_11792>
+...
+040 (266389.000.000) 2025-04-26 02:42:22 Finished transferring input files
+...
+040 (266389.000.000) 2025-04-26 02:42:23 Started transferring output files
+...
+021 (266389.000.000) 2025-04-26 02:42:24 Error from starter on slot1_9@e2008.chtc.wisc.edu:
+	Failed to transfer files: SHADOW at 128.104.100.148 failed to send file(s) to <128.105.68.15:46125>: |Error: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory; STARTER failed to receive file(s) from <128.104.100.148:9618>
+	Code 13 Subcode 2
+...
+004 (266389.000.000) 2025-04-26 02:42:24 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	30590  -  Run Bytes Received By Job
+	Transfer input files failure at access point learn while sending files to execution point slot1_9@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   776185  1048576   1049728 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :              1024      1024 
+...
+012 (266389.000.000) 2025-04-26 02:42:24 Job was held.
+	Transfer input files failure at access point learn while sending files to execution point slot1_9@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory
+	Code 13 Subcode 2
+...
+000 (266390.000.000) 2025-04-26 03:10:08 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266390.000.000) 2025-04-26 03:10:24 Started transferring input files
+	Transferring to host: <128.105.68.15:9618?addrs=128.105.68.15-9618+[2607-f388-2200-100-b226-28ff-fe51-615c]-9618&alias=e2008.chtc.wisc.edu&noUDP&sock=slot1_28_574711_a3e4_11855>
+...
+040 (266390.000.000) 2025-04-26 03:10:27 Finished transferring input files
+...
+040 (266390.000.000) 2025-04-26 03:10:30 Started transferring output files
+...
+021 (266390.000.000) 2025-04-26 03:10:30 Error from starter on slot1_28@e2008.chtc.wisc.edu:
+	Failed to transfer files: SHADOW at 128.104.100.148 failed to send file(s) to <128.105.68.15:43013>: |Error: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory; STARTER failed to receive file(s) from <128.104.100.148:9618>
+	Code 13 Subcode 2
+...
+004 (266390.000.000) 2025-04-26 03:10:30 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	0  -  Run Bytes Sent By Job
+	30590  -  Run Bytes Received By Job
+	Transfer input files failure at access point learn while sending files to execution point slot1_28@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   776185  2097152   2098304 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :              2048      2048 
+...
+012 (266390.000.000) 2025-04-26 03:10:30 Job was held.
+	Transfer input files failure at access point learn while sending files to execution point slot1_28@e2008.chtc.wisc.edu. Details: reading from file /home/twang682/project/$(foreach year: (errno 2) No such file or directory
+	Code 13 Subcode 2
+...
+009 (266389.000.000) 2025-04-26 03:11:46 Job was aborted.
+	via condor_rm (by user twang682)
+...
+009 (266390.000.000) 2025-04-26 03:11:46 Job was aborted.
+	via condor_rm (by user twang682)
+...
+000 (266391.000.000) 2025-04-26 03:12:20 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266391.000.000) 2025-04-26 03:13:51 Started transferring input files
+	Transferring to host: <128.105.68.156:9618?addrs=128.105.68.156-9618+[2607-f388-2200-100-b226-28ff-fe50-3c4c]-9618&alias=e2015.chtc.wisc.edu&noUDP&sock=slot1_23_1013062_9325_14754>
+...
+040 (266391.000.000) 2025-04-26 03:13:58 Finished transferring input files
+...
+001 (266391.000.000) 2025-04-26 03:13:58 Job executing on host: <128.105.68.156:9618?addrs=128.105.68.156-9618+[2607-f388-2200-100-b226-28ff-fe50-3c4c]-9618&alias=e2015.chtc.wisc.edu&noUDP&sock=startd_9652_0c33>
+	SlotName: slot1_23@e2015.chtc.wisc.edu
+	CondorScratchDir = "/var/lib/condor/execute/slot1/dir_3696669"
+	Cpus = 1
+	Disk = 2098386
+	GPUs = 0
+	IoHeavy = 0
+	Memory = 2048
+...
+006 (266391.000.000) 2025-04-26 03:14:02 Image size of job updated: 30
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+040 (266391.000.000) 2025-04-26 03:14:02 Started transferring output files
+...
+040 (266391.000.000) 2025-04-26 03:14:02 Finished transferring output files
+...
+021 (266391.000.000) 2025-04-26 03:14:02 Error from starter on slot1_23@e2015.chtc.wisc.edu:
+	STARTER at 128.105.68.156 failed to send file(s) to <128.104.100.148:9618>: |Error: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_3696669/total_loss_by_state.csv: (errno 2) No such file or directory; SHADOW failed to receive file(s) from <128.105.68.156:36995>
+	Code 13 Subcode 2
+...
+004 (266391.000.000) 2025-04-26 03:14:02 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:02, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	290  -  Run Bytes Sent By Job
+	62248  -  Run Bytes Received By Job
+	Transfer output files failure at execution point slot1_23@e2015.chtc.wisc.edu while sending files to access point learn. Details: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_3696669/total_loss_by_state.csv: (errno 2) No such file or directory
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :   776336  2097152   2098386 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :        0     2048      2048 
+	   TimeExecute (s)      :        4                    
+	   TimeSlotBusy (s)     :       11                    
+...
+012 (266391.000.000) 2025-04-26 03:14:03 Job was held.
+	Transfer output files failure at execution point slot1_23@e2015.chtc.wisc.edu while sending files to access point learn. Details: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_3696669/total_loss_by_state.csv: (errno 2) No such file or directory
+	Code 12 Subcode 2
+...
+000 (266392.000.000) 2025-04-26 03:18:25 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266392.000.000) 2025-04-26 03:18:59 Started transferring input files
+	Transferring to host: <128.105.68.150:9618?addrs=128.105.68.150-9618+[2607-f388-2200-100-b226-28ff-fe50-1774]-9618&alias=e2009.chtc.wisc.edu&noUDP&sock=slot1_24_1642302_1419_20210>
+...
+040 (266392.000.000) 2025-04-26 03:19:03 Finished transferring input files
+...
+001 (266392.000.000) 2025-04-26 03:19:03 Job executing on host: <128.105.68.150:9618?addrs=128.105.68.150-9618+[2607-f388-2200-100-b226-28ff-fe50-1774]-9618&alias=e2009.chtc.wisc.edu&noUDP&sock=startd_9276_2497>
+	SlotName: slot1_24@e2009.chtc.wisc.edu
+	CondorScratchDir = "/var/lib/condor/execute/slot1/dir_1151856"
+	Cpus = 1
+	Disk = 2098304
+	GPUs = 0
+	IoHeavy = 0
+	Memory = 2048
+...
+006 (266392.000.000) 2025-04-26 03:19:08 Image size of job updated: 96
+	0  -  MemoryUsage of job (MB)
+	0  -  ResidentSetSize of job (KB)
+...
+040 (266392.000.000) 2025-04-26 03:19:08 Started transferring output files
+...
+040 (266392.000.000) 2025-04-26 03:19:08 Finished transferring output files
+...
+021 (266392.000.000) 2025-04-26 03:19:08 Error from starter on slot1_24@e2009.chtc.wisc.edu:
+	STARTER at 128.105.68.150 failed to send file(s) to <128.104.100.148:9618>: |Error: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_1151856/total_loss_by_state.csv: (errno 2) No such file or directory; SHADOW failed to receive file(s) from <128.105.68.150:38467>
+	Code 13 Subcode 2
+...
+004 (266392.000.000) 2025-04-26 03:19:08 Job was evicted.
+	(0) CPU times
+		Usr 0 00:00:02, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+	559  -  Run Bytes Sent By Job
+	62313  -  Run Bytes Received By Job
+	Transfer output files failure at execution point slot1_24@e2009.chtc.wisc.edu while sending files to access point learn. Details: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_1151856/total_loss_by_state.csv: (errno 2) No such file or directory
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :   776217  2097152   2098304 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :        0     2048      2048 
+	   TimeExecute (s)      :        5                    
+	   TimeSlotBusy (s)     :        9                    
+...
+012 (266392.000.000) 2025-04-26 03:19:08 Job was held.
+	Transfer output files failure at execution point slot1_24@e2009.chtc.wisc.edu while sending files to access point learn. Details: 2 total failures: first failure: reading from file /var/lib/condor/execute/slot1/dir_1151856/total_loss_by_state.csv: (errno 2) No such file or directory
+	Code 12 Subcode 2
+...
+000 (266393.000.000) 2025-04-26 03:29:36 Job submitted from host: <128.104.100.148:9618?addrs=128.104.100.148-9618+[2607-f388-107c-501-216-3eff-feb2-bc11]-9618&alias=learn.chtc.wisc.edu&noUDP&sock=schedd_1351356_64bc>
+...
+040 (266393.000.000) 2025-04-26 03:31:00 Started transferring input files
+	Transferring to host: <128.105.68.157:9618?addrs=128.105.68.157-9618+[2607-f388-2200-100-b226-28ff-fe50-2c68]-9618&alias=e2016.chtc.wisc.edu&noUDP&sock=slot1_6_2290744_20d9_11605>
+...
+040 (266393.000.000) 2025-04-26 03:31:08 Finished transferring input files
+...
+001 (266393.000.000) 2025-04-26 03:31:08 Job executing on host: <128.105.68.157:9618?addrs=128.105.68.157-9618+[2607-f388-2200-100-b226-28ff-fe50-2c68]-9618&alias=e2016.chtc.wisc.edu&noUDP&sock=startd_9715_42aa>
+	SlotName: slot1_6@e2016.chtc.wisc.edu
+	CondorScratchDir = "/var/lib/condor/execute/slot1/dir_374479"
+	Cpus = 1
+	Disk = 2098386
+	GPUs = 0
+	IoHeavy = 0
+	Memory = 2048
+...
+006 (266393.000.000) 2025-04-26 03:31:18 Image size of job updated: 137936
+	135  -  MemoryUsage of job (MB)
+	137936  -  ResidentSetSize of job (KB)
+...
+006 (266393.000.000) 2025-04-26 03:31:21 Image size of job updated: 139344
+	135  -  MemoryUsage of job (MB)
+	137936  -  ResidentSetSize of job (KB)
+...
+040 (266393.000.000) 2025-04-26 03:31:21 Started transferring output files
+...
+040 (266393.000.000) 2025-04-26 03:31:21 Finished transferring output files
+...
+005 (266393.000.000) 2025-04-26 03:31:21 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:07, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:07, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	14951  -  Run Bytes Sent By Job
+	61161  -  Run Bytes Received By Job
+	14951  -  Total Bytes Sent By Job
+	61161  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :   776352  2097152   2098386 
+	   GPUs                 :                           0 
+	   IoHeavy              :                           0 
+	   Memory (MB)          :      135     2048      2048 
+	   TimeExecute (s)      :       13                    
+	   TimeSlotBusy (s)     :       21                    
+
+	Job terminated of its own accord at 2025-04-26T08:31:21Z with exit-code 0.
+...

@@ -1,0 +1,30 @@
+arguments             = Rscript split_by_year.R
+container_image       = file:///staging/jgillett/R_tidyverse_FITSio.sif
+
+# File transfer settings
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+transfer_input_files  = split_by_year.R, extracted_torn_data, \
+                         extracted_hail_data, \
+                         extracted_wind_data
+
+# Output logs
+output                = logs/split_by_year.out
+error                 = logs/split_by_year.err
+log                   = logs/split_by_year.log
+
+
+# Tell HTCondor to copy the whole folder content back after job
+transfer_output_remaps = \
+    "extracted_torn_data = extracted_torn_data, \
+     extracted_hail_data = extracted_hail_data, \
+     extracted_wind_data = extracted_wind_data"
+
+
+# Job name and queue
+request_cpus          = 1
+request_memory        = 1GB
+request_disk          = 1GB
+
+queue
